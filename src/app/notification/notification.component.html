@@ -1,0 +1,76 @@
+<div class="modal fade" id="notification-div"
+tabindex="-1"
+role="dialog"
+aria-labelledby="notification-lbl"
+aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title"
+          id="notification-lbl">{{notification.title}}</h5>
+          <button type="button"
+          class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>{{notification.message}}</p>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-sm btn-success"
+          style="float: left" id="cancel-del-modal"
+          data-dismiss="modal">Ok</button>
+       </div>
+      </div>
+    </div>
+  </div>
+  <button class="btn btn-sm btn-default notification-btn"
+          data-toggle="modal"
+          data-target="#notification-div">Notify</button>
+  <div class="modal fade" id="del-notification-div" tabindex="-1" role="dialog" aria-labelledby="notification-lbl" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="notification-lbl">Please Confirm.</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p>{{notification.message}}</p>
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-sm btn-danger" (click)="deleteItem()" style="float: left">Delete</button>
+            <button class="btn btn-sm btn-secondary cancel-del-modal" style="float: right" id="cancel-del-modal" data-dismiss="modal">Cancel</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <button class="btn btn-sm btn-default del-notification-btn"
+    data-toggle="modal"
+    data-target="#del-notification-div">Notify Delete</button>
+
+    <div class="modal fade" id="max-img-notification-div" tabindex="-1" role="dialog" aria-labelledby="notification-lbl" aria-hidden="true">
+        <div class="modal-dialog  modal-lg" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="notification-lbl">{{notification.title}}</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+                <img class="d-block w-100 carousel-img"
+                src="{{notification?.message}}"
+                onerror="this.src='assets/no-img.jpg'"
+                alt="First slide">
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-sm btn-success" style="float: left" id="cancel-del-modal" data-dismiss="modal">Ok</button>
+             </div>
+          </div>
+        </div>
+      </div>
+      <button class="btn btn-sm btn-default max-img-notification-btn"
+      data-toggle="modal"
+      data-target="#max-img-notification-div">Maximize image</button>

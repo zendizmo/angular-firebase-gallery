@@ -1,0 +1,94 @@
+<div class="jumbotron">
+  <h2 class="display-4 text-center">New Image </h2>
+  <hr>
+
+    <div class="row" align="center">
+      <div class="col-lg-4 col-md-12"></div>
+      <div class="col-lg-4 col-md-12">
+          <div class="input-group mb-12">
+            <div class="input-group-prepend">
+                <label class="input-group-text"
+                for="imageNm">Image Name</label>
+            </div>
+            <input type="text"
+            name="imageName"
+            id="imageName"
+            [(ngModel)] = "imageNm"
+            placeholder="Enter Image Name">
+          </div>
+      </div>
+    </div>
+    <div class="col-lg-4 col-md-12"></div>
+    <div class="row">
+      <div class="col-lg-4 col-md-12"></div>
+      <div class="col-lg-4 col-md-12">
+        <div class="form-group">
+            <img class="img-thumbnail"
+            name="preview"
+            id="preview"
+            src="assets/no-img.jpg"
+            (click) = "onUploadBtnClick()">
+        </div>
+        <div class="form-group">
+        <input type="button"
+            (click)="onUploadBtnClick()"
+            class="btn btn-sm btn-primary"
+            id="uploadProductImg"
+            style="float: left"
+            value="Upload" />
+        </div>
+        <!-- <button type="submit" id="upload-btn"
+        class="btn btn-sm btn-success">Upload Image</button> -->
+        <div>
+          <input type="file" id="imageFile"
+          name="imageAvatar" (change)="onFileChange($event)">
+        </div>
+        <br>
+      </div>
+    </div>
+    <div *ngIf="uploadProgress | async as pct">
+
+      <progress class="progress is-info"
+                [value]="pct"
+                max="100">
+      </progress>
+    </div>
+
+  <hr>
+  <h2 class="display-4 text-center">Your Images </h2>
+  <hr>
+  <div class="row">
+    <div class="col-md-3 mb-3 sm-2 xs-1 d-flex align-items-stretch"
+    *ngFor="let image of images | async">
+        <div class="card">
+            <div class="view"
+            (click)="maximizeImage(image)"
+            data-toggle="modal"
+            data-target="#product-dtl">
+                  <img class="img-fluid"
+                  data-src="{{image.imagePath}}"
+                  alt="Card image cap"
+                  style="cursor: pointer; height: 150px"
+                >
+            </div>
+            <div class="card-body">
+                <h4 class="card-title">{{image?.imageName}}</h4>
+                <button type="button"
+                      class="btn btn-sm btn-info"
+                      (click)="maximizeImage(image)"
+                      data-toggle="modal"
+                      data-target="#product-dtl"
+                      style="float: left;"
+              >Maximize</button>
+              <i class="rem-icon fa fa-trash"
+              aria-hidden="true"
+              (click)="onDeleteClick(image)"
+              data-toggle="modal"
+              data-target="#notification-delete-confirm"
+              style="float: right;"
+              >
+              </i>
+            </div>
+        </div>
+    </div>
+  </div>

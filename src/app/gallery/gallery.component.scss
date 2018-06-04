@@ -1,0 +1,49 @@
+
+#preview{
+  width: 320px;
+  height: 260px;
+  padding:10px;
+  background-origin: content-box;
+  cursor: pointer
+}
+
+.new-img-div{
+  width: 50%;
+  margin: 0 auto;
+}
+
+#imageFile, #upload-btn
+{
+  visibility: hidden;
+  margin-left: 10px;
+}
+
+.rem-icon{
+  margin: 10px;
+  color: #ff4444;
+  cursor: pointer;
+}
+
+
+.dropzone {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  height: 300px;
+  border: 2px dashed #f16624;
+  border-radius: 5px;
+  background: white;
+  margin: 10px 0;
+
+  &.hovering {
+      border: 2px solid #f16624;
+      color: #dadada !important;
+  }
+}
+progress {
+  width: 100%;
+}
+progress::-webkit-progress-value {
+  transition: width 0.1s ease;
+}
