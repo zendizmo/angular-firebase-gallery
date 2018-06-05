@@ -105,7 +105,7 @@ export class GalleryComponent implements OnInit {
           this.downloadURL = fileRef.getDownloadURL();
           // The above step returns an observable which can be subscribed to fetch the data within it
           this.downloadURL.subscribe(data => {
-            // to autogenerate id creation
+            // to create an id for the document.
             const id = this.afs.createId();
             const imagePath = data;
             // Image name fetched from ngModel on 'imageNm' field
