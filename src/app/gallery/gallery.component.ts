@@ -12,7 +12,7 @@ import { finalize, map } from 'rxjs/operators';
 
 
 
-export interface Image { id: string; imagePath: string; imageName: string; maintTs: number; }
+export interface Image { id: string; imagePath: string; imageURL: string; imageName: string; maintTs: number; }
 
 @Component({
   selector: 'app-gallery',
@@ -24,6 +24,7 @@ export class GalleryComponent implements OnInit {
   title = 'app';
   myForm: FormGroup;
   imageNm: string;
+  imgPath: string;
   private imagesCollection: AngularFirestoreCollection<Image>;
   images: Observable<Image[]>;
   modalImage: any;
@@ -88,15 +89,15 @@ export class GalleryComponent implements OnInit {
     }
 
     // storage path
-    const path = `test/${new Date().getTime()}_${file.name}`;
-    const fileRef = this.afStorage.ref(path);
+    this.imgPath = `test/${new Date().getTime()}_${file.name}`;
+    const fileRef = this.afStorage.ref(this.imgPath);
 
     // optional metadata
     const customMetadata = { app: 'Angular-FireBase-Gallery'};
     // main task
-    this.task = this.afStorage.upload(path, file, { customMetadata });
+    this.task = this.afStorage.upload(this.imgPath, file, { customMetadata });
 
-    this.afStorage.upload(path, file, { customMetadata });
+    this.afStorage.upload(this.imgPath, file, { customMetadata });
     // observe percentage changes
     this.uploadProgress = this.task.percentageChanges();
     // get notified when the download URL is available
@@ -107,12 +108,15 @@ export class GalleryComponent implements OnInit {
           this.downloadURL.subscribe(data => {
             // to create an id for the document.
             const id = this.afs.createId();
-            const imagePath = data;
+            // storing downloadURL as imageURL
+            const imageURL = data;
+            // storing image path in firestore
+            const imagePath = this.imgPath;
             // Image name fetched from ngModel on 'imageNm' field
             const imageName = this.imageNm;
             // To store timestamp of the image before being inserted in firestore
             const maintTs = Date.now();
-            const image: Image = { id, imagePath, imageName, maintTs };
+            const image: Image = { id, imagePath, imageURL, imageName, maintTs };
             // image object inserted in image collection (AngularFirestoreCollection)
             this.imagesCollection.doc(id).set(image);
             // setting the image name back to blank
@@ -150,7 +154,7 @@ export class GalleryComponent implements OnInit {
     console.log('From notifications ' + this.modalImage.id);
     $('.cancel-del-modal').click();
     this.imagesCollection.doc(this.modalImage.id).delete();
-
+    this.afStorage.ref(this.modalImage.imagePath).delete();
 
   }
 
