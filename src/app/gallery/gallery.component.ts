@@ -21,26 +21,16 @@ export interface Image { id: string; imagePath: string; imageName: string; maint
 })
 export class GalleryComponent implements OnInit {
 
-
   title = 'app';
   myForm: FormGroup;
   imageNm: string;
   private imagesCollection: AngularFirestoreCollection<Image>;
   images: Observable<Image[]>;
-  imagesArr = [];
   modalImage: any;
   // main task
   task: AngularFireUploadTask;
-
   uploadProgress: Observable<number>;
   downloadURL: Observable<string>;
-
-  //
-  snapshot: Observable<any>;
-
-
-  isHovering: boolean;
-
 
   constructor(private fb: FormBuilder,
               private noteSvc: NotificationServicesService,
