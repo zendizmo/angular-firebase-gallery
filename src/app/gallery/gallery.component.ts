@@ -70,11 +70,6 @@ export class GalleryComponent implements OnInit {
       reader.onload = () => {
         $('#preview')
         .attr('src', URL.createObjectURL(event.target.files[0]));
-        this.myForm.get('imageAvatar').setValue({
-          filename: file.name,
-          filetype: file.type,
-          value: reader.result.split(',')[1]
-        });
       };
       this.startUpload(event.target.files);
 
